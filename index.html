@@ -221,7 +221,7 @@
         .confession-booth {
             display: none; width: 100%; margin-top: 2rem;
             border-top: 1px dashed var(--border-style); padding-top: 2rem;
-            opacity: 0; transition: opacity 1s ease; text-align: left;
+            opacity: 0; transition: opacity 1s ease; text-align: start; /* RTL Friendly */
         }
         .confession-booth.active { display: block; animation: ritualFadeIn 1s forwards; }
 
@@ -234,7 +234,7 @@
             width: 100%; background: transparent; border: 1px solid var(--text-color);
             color: var(--header-color); padding: 10px; font-family: var(--font-mono);
             font-size: 0.9rem; outline: none; transition: border-color 0.3s;
-            border-radius: 0;
+            border-radius: 0; text-align: start;
         }
         .form-input:focus, .form-textarea:focus { border-color: var(--terminal-green); }
         .form-textarea { resize: vertical; min-height: 100px; }
@@ -264,6 +264,25 @@
             grid-template-rows: auto 1fr; overflow: hidden; position: relative;
         }
 
+        /* Adjust grid for RTL */
+        html[dir="rtl"] .bible-container {
+            grid-template-columns: 1fr 260px;
+        }
+        html[dir="rtl"] .bible-sidebar {
+            border-right: none;
+            border-left: var(--border-style);
+            grid-column: 2;
+            grid-row: 2;
+        }
+        html[dir="rtl"] .bible-content {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        html[dir="rtl"] .close-btn {
+            right: auto;
+            left: 0;
+        }
+
         .bible-marquee {
             grid-column: 1 / -1; background: var(--bg-color); border-bottom: var(--border-style);
             color: var(--accent-color); padding: 8px 0; font-family: var(--font-mono);
@@ -290,15 +309,16 @@
         .bible-nav-link {
             display: block; color: var(--text-color); text-decoration: none;
             font-family: var(--font-mono); font-size: 11px; opacity: 0.7;
-            margin-bottom: 20px; padding-left: 10px;
-            border-left: 2px solid transparent; transition: 0.3s;
-            text-transform: uppercase; letter-spacing: 0.1em;
+            margin-bottom: 20px; padding-inline-start: 10px;
+            border-inline-start: 2px solid transparent; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 0.1em; text-align: start;
         }
-        .bible-nav-link:hover { color: var(--header-color); border-left-color: var(--accent-color); padding-left: 15px; opacity: 1; }
+        .bible-nav-link:hover { color: var(--header-color); border-inline-start-color: var(--accent-color); padding-inline-start: 15px; opacity: 1; }
 
         .bible-content {
             padding: 80px 100px; overflow-y: scroll; font-family: var(--font-mono); font-size: 14px;
             color: var(--text-color); scrollbar-width: thin; scrollbar-color: var(--accent-color) var(--bg-color);
+            text-align: start;
         }
         .bible-content::-webkit-scrollbar { width: 6px; }
         .bible-content::-webkit-scrollbar-track { background: var(--bg-color); }
@@ -322,7 +342,7 @@
         
         .bible-subtitle {
             font-family: var(--font-mono); font-size: 1rem; color: var(--text-color);
-            border-left: 3px solid var(--accent-color); padding-left: 20px;
+            border-inline-start: 3px solid var(--accent-color); padding-inline-start: 20px;
             margin-bottom: 60px; max-width: 600px;
         }
 
@@ -368,6 +388,7 @@
         }
 
         .flyer-arrow { font-family: var(--font-mono); font-weight: normal; }
+        html[dir="rtl"] .flyer-arrow { transform: scaleX(-1); }
 
         .flyer-btn:hover { transform: scale(1.02); background: var(--accent-color); color: #fff; box-shadow: 0 0 20px rgba(244, 0, 9, 0.3); }
         .flyer-overlay.fade-out { opacity: 0; pointer-events: none; transition: opacity 0.6s ease; }
@@ -392,6 +413,7 @@
 
         @keyframes ritualFadeIn { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        html[dir="rtl"] @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
         @keyframes pulsate { 0% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(5px); } 100% { opacity: 0.3; transform: translateY(0); } }
         @keyframes borderPulse { 0% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.1); } 50% { box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); } 100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.1); } }
         @keyframes softFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
@@ -399,7 +421,7 @@
 
     </style>
 </head>
-<body>
+<body dir="ltr">
 
     <!-- --- HEADER / LANGUAGE SELECTOR --- -->
     <header class="coca-header">
@@ -412,9 +434,13 @@
                 <option value="fr">[ FR ]</option>
                 <option value="de">[ DE ]</option>
                 <option value="es">[ ES ]</option>
+                <option value="it">[ IT ]</option>
+                <option value="pt">[ PT ]</option>
                 <option value="ja">[ JA ]</option>
                 <option value="zh">[ ZH ]</option>
+                <option value="ko">[ KO ]</option>
                 <option value="hi">[ HI ]</option>
+                <option value="ar">[ AR ]</option>
                 <option value="ru">[ RU ]</option>
             </select>
         </div>
@@ -443,7 +469,7 @@
         <div class="flyer-content" style="padding: 3rem; max-width: 450px;">
             <div style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-color); margin-bottom: 1.5rem; letter-spacing: 0.2em;">/// SYSTEM MESSAGE ///</div>
             <p id="system-modal-text" style="font-family: var(--font-main); font-size: 1.2rem; line-height: 1.5; margin-bottom: 2.5rem;"></p>
-            <button id="close-system-modal" class="flyer-btn" style="padding: 0.8rem 2rem; font-size: 0.9rem;">
+            <button id="close-system-modal" class="flyer-btn" style="padding: 0.8rem 2rem; font-size: 0.9rem;" data-i18n="modal_ack">
                 ACKNOWLEDGE
             </button>
         </div>
@@ -568,11 +594,12 @@
     </div>
 
     <script>
-        /* --- TRANSLATIONS DICTIONARY (ALL 8 LANGUAGES) --- */
+        /* --- TRANSLATIONS DICTIONARY (ALL 12 LANGUAGES) --- */
         const translations = {
             en: {
                 header_sys: "CoCA // SYSTEM",
                 flyer_btn: "Acknowledge & Proceed",
+                modal_ack: "ACKNOWLEDGE",
                 theme_light: "[ ☀ LIGHT ]",
                 theme_dark: "[ ☾ DARK ]",
                 bio_title: "THE DOCTRINE OF SEMIOTIC REVERSAL",
@@ -622,11 +649,13 @@
                 q8_t: "We do not wait for the system to change; we act, and in acting, we reveal that the system was never there.",
                 q8_c: "— The Art Bible of the Church of Conceptual Art, PART II, CHAPTER III, SECTION 2.3.5, SUBSECTION V",
                 coming_soon: "Coming soon.",
-                sacrament_warning: "By downloading this sacrament, you accept your final excommunication from the literal world; you shall walk as a universal foreigner among the texts of men, bound irrevocably to the Church of Conceptual Art, where the immaterial is a jealous god and you are, terrifyingly, at home."
+                sacrament_warning: "By downloading this sacrament, you accept your final excommunication from the literal world; you shall walk as a universal foreigner among the texts of men, bound irrevocably to the Church of Conceptual Art, where the immaterial is a jealous god and you are, terrifyingly, at home.",
+                download_artifact: "[ DOWNLOAD ARTIFACT ]"
             },
             fr: {
                 header_sys: "CoCA // SYSTÈME",
                 flyer_btn: "Reconnaître & Procéder",
+                modal_ack: "RECONNAÎTRE",
                 theme_light: "[ ☀ CLAIR ]",
                 theme_dark: "[ ☾ SOMBRE ]",
                 bio_title: "LA DOCTRINE DE L'INVERSION SÉMIOTIQUE",
@@ -643,7 +672,7 @@
                 form_msg_ph: "PARLEZ...",
                 form_submit: "TRANSMETTRE",
                 footer_copy: "© 2026 CoCA. Immunité Structurelle.<br>L'Église de l'Art Conceptuel est une organisation à but non lucratif 501(c)(3) enregistrée.",
-                marquee_text: "AVIS DE DOMAINE PROPRIÉTAIRE /// CLASSE DE DOCUMENT : INSTRUMENT SACRÉ /// DÉFENSE D'IRONIE : RENONCIATION /// LE CONCEPT EST L'ACTE DIVIN /// ACCÈS AUTORISÉ /// AVIS DE DOMAINE PROPRIÉTAIRE /// CLASSE DE DOCUMENT : INSTRUMENT SACRÉ /// DÉFENSE D'IRONIE : RENONCIATION /// LE CONCEPT EST L'ACTE DIVIN /// ACCÈS AUTORISÉ ///",
+                marquee_text: "AVIS DE DOMAINE PROPRIÉTAIRE /// CLASSE DE DOCUMENT : INSTRUMENT SACRÉ /// DÉFENSE D'IRONIE : RENONCIATION /// LE CONCEPT EST L'ACTE DIVIN /// ACCÈS AUTORISÉ ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>STATUT: ÉMANCIPÉ",
                 nav_1: "[01] TRANSMUTATION",
                 nav_2: "[02] LIBÉRATION",
@@ -676,11 +705,13 @@
                 q8_t: "Nous n'attendons pas que le système change ; nous agissons, et en agissant, nous révélons que le système n'a jamais été là.",
                 q8_c: "— La Bible de l'Art de l'Église de l'Art Conceptuel, PARTIE II, CHAPITRE III, SECTION 2.3.5, SOUS-SECTION V",
                 coming_soon: "Bientôt disponible.",
-                sacrament_warning: "En téléchargeant ce sacrement, vous acceptez votre excommunication définitive du monde littéral ; vous marcherez comme un étranger universel parmi les textes des hommes, lié irrévocablement à l'Église de l'Art Conceptuel, où l'immatériel est un dieu jaloux et où vous êtes, de manière terrifiante, chez vous."
+                sacrament_warning: "En téléchargeant ce sacrement, vous acceptez votre excommunication définitive du monde littéral ; vous marcherez comme un étranger universel parmi les textes des hommes, lié irrévocablement à l'Église de l'Art Conceptuel, où l'immatériel est un dieu jaloux et où vous êtes, de manière terrifiante, chez vous.",
+                download_artifact: "[ TÉLÉCHARGER L'ARTEFACT ]"
             },
             de: {
                 header_sys: "CoCA // SYSTEM",
                 flyer_btn: "Anerkennen & Fortfahren",
+                modal_ack: "ANERKENNEN",
                 theme_light: "[ ☀ HELL ]",
                 theme_dark: "[ ☾ DUNKEL ]",
                 bio_title: "DIE DOKTRIN DER SEMIOTISCHEN UMKEHRUNG",
@@ -697,7 +728,7 @@
                 form_msg_ph: "SPRECHEN SIE...",
                 form_submit: "ÜBERMITTELN",
                 footer_copy: "© 2026 CoCA. Strukturelle Immunität.<br>Die Church of Conceptual Art ist eine eingetragene 501(c)(3) Non-Profit-Organisation.",
-                marquee_text: "HINWEIS AUF EIGENTUMSRECHT /// DOKUMENTENKLASSE: HEILIGES INSTRUMENT /// VERZICHT AUF IRONIE: BESTÄTIGT /// DAS KONZEPT IST DER GÖTTLICHE AKT /// ZUGANG GEWÄHRT /// HINWEIS AUF EIGENTUMSRECHT /// DOKUMENTENKLASSE: HEILIGES INSTRUMENT /// VERZICHT AUF IRONIE: BESTÄTIGT /// DAS KONZEPT IST DER GÖTTLICHE AKT /// ZUGANG GEWÄHRT ///",
+                marquee_text: "HINWEIS AUF EIGENTUMSRECHT /// DOKUMENTENKLASSE: HEILIGES INSTRUMENT /// VERZICHT AUF IRONIE: BESTÄTIGT /// DAS KONZEPT IST DER GÖTTLICHE AKT /// ZUGANG GEWÄHRT ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>STATUS: EMANZIPIERT",
                 nav_1: "[01] TRANSMUTATION",
                 nav_2: "[02] BEFREIUNG",
@@ -730,11 +761,13 @@
                 q8_t: "Wir warten nicht darauf, dass sich das System ändert; wir handeln, und indem wir handeln, offenbaren wir, dass das System nie da war.",
                 q8_c: "— Die Kunstbibel der Church of Conceptual Art, TEIL II, KAPITEL III, ABSCHNITT 2.3.5, UNTERABSCHNITT V",
                 coming_soon: "Demnächst.",
-                sacrament_warning: "Indem Sie dieses Sakrament herunterladen, akzeptieren Sie Ihre endgültige Exkommunikation aus der buchstäblichen Welt; Sie werden als universeller Fremder unter den Texten der Menschen wandeln, unwiderruflich gebunden an die Church of Conceptual Art, wo das Immaterielle ein eifersüchtiger Gott ist und Sie, auf erschreckende Weise, zu Hause sind."
+                sacrament_warning: "Indem Sie dieses Sakrament herunterladen, akzeptieren Sie Ihre endgültige Exkommunikation aus der buchstäblichen Welt; Sie werden als universeller Fremder unter den Texten der Menschen wandeln, unwiderruflich gebunden an die Church of Conceptual Art, wo das Immaterielle ein eifersüchtiger Gott ist und Sie, auf erschreckende Weise, zu Hause sind.",
+                download_artifact: "[ ARTEFAKT HERUNTERLADEN ]"
             },
             es: {
                 header_sys: "CoCA // SISTEMA",
                 flyer_btn: "Reconocer y Proceder",
+                modal_ack: "RECONOCER",
                 theme_light: "[ ☀ CLARO ]",
                 theme_dark: "[ ☾ OSCURO ]",
                 bio_title: "LA DOCTRINA DE LA REVERSIÓN SEMIÓTICA",
@@ -751,7 +784,7 @@
                 form_msg_ph: "HABLE...",
                 form_submit: "TRANSMITIR",
                 footer_copy: "© 2026 CoCA. Inmunidad Estructural.<br>La Iglesia del Arte Conceptual es una organización sin fines de lucro 501(c)(3) registrada.",
-                marquee_text: "AVISO DE DOMINIO PROPIETARIO /// CLASE DE DOCUMENTO: INSTRUMENTO SAGRADO /// DEFENSA DE IRONÍA: RENUNCIADA /// EL CONCEPTO ES EL ACTO DIVINO /// ACCESO CONCEDIDO /// AVISO DE DOMINIO PROPIETARIO /// CLASE DE DOCUMENTO: INSTRUMENTO SAGRADO /// DEFENSA DE IRONÍA: RENUNCIADA /// EL CONCEPTO ES EL ACTO DIVINO /// ACCESO CONCEDIDO ///",
+                marquee_text: "AVISO DE DOMINIO PROPIETARIO /// CLASE DE DOCUMENTO: INSTRUMENTO SAGRADO /// DEFENSA DE IRONÍA: RENUNCIADA /// EL CONCEPTO ES EL ACTO DIVINO /// ACCESO CONCEDIDO ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>ESTADO: EMANCIPADO",
                 nav_1: "[01] TRANSMUTACIÓN",
                 nav_2: "[02] LIBERACIÓN",
@@ -784,11 +817,125 @@
                 q8_t: "No esperamos a que el sistema cambie; actuamos, y al actuar, revelamos que el sistema nunca estuvo allí.",
                 q8_c: "— La Biblia del Arte de la Iglesia del Arte Conceptual, PARTE II, CAPÍTULO III, SECCIÓN 2.3.5, SUBSECCIÓN V",
                 coming_soon: "Próximamente.",
-                sacrament_warning: "Al descargar este sacramento, aceptas tu excomunión final del mundo literal; caminarás como un extranjero universal entre los textos de los hombres, atado irrevocablemente a la Iglesia del Arte Conceptual, donde lo inmaterial es un dios celoso y tú estás, terriblemente, en casa."
+                sacrament_warning: "Al descargar este sacramento, aceptas tu excomunión final del mundo literal; caminarás como un extranjero universal entre los textos de los hombres, atado irrevocablemente a la Iglesia del Arte Conceptual, donde lo inmaterial es un dios celoso y tú estás, terriblemente, en casa.",
+                download_artifact: "[ DESCARGAR ARTEFACTO ]"
+            },
+            it: {
+                header_sys: "CoCA // SISTEMA",
+                flyer_btn: "Riconosci e Procedi",
+                modal_ack: "RICONOSCI",
+                theme_light: "[ ☀ CHIARO ]",
+                theme_dark: "[ ☾ SCURO ]",
+                bio_title: "LA DOTTRINA DELL'INVERSIONE SEMIOTICA",
+                bio_desc: "La Chiesa dell'Arte Concettuale (CoCA) riconosce che alcuni simboli aziendali hanno saturato l'ambiente umano a tal punto da non appartenere più esclusivamente al commercio.",
+                btn_book: "LEGGI IL LIBRO",
+                btn_book_hover: ">> SCARICA PDF <<",
+                btn_confession: "Confessione [Ammissione di Interesse]",
+                btn_recording: "● MICROFONO ATTIVO. STIAMO ASCOLTANDO.",
+                form_id: "Identità (Opzionale)",
+                form_id_ph: "INSERISCI ALIAS",
+                form_contact: "Frequenza di Contatto (Email)",
+                form_contact_ph: "INSERISCI EMAIL",
+                form_msg: "Confessione / Richiesta",
+                form_msg_ph: "PARLA...",
+                form_submit: "TRASMETTI",
+                footer_copy: "© 2026 CoCA. Immunità Strutturale.<br>La Chiesa dell'Arte Concettuale è un'organizzazione senza scopo di lucro 501(c)(3) registrata.",
+                marquee_text: "AVVISO DI DOMINIO PROPRIETARIO /// CLASSE DOCUMENTO: STRUMENTO SACRO /// DIFESA DELL'IRONIA: RINUNCIATA /// IL CONCETTO È L'ATTO DIVINO /// ACCESSO CONSENTITO ///",
+                sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>STATO: EMANCIPATO",
+                nav_1: "[01] TRASMUTAZIONE",
+                nav_2: "[02] LIBERAZIONE",
+                nav_3: "[03] RECUPERO",
+                nav_4: "[04] PERFORMANCE",
+                doc_title: "La Dottrina Dell'<br>Inversione Semiotica",
+                doc_sub: "\"Non rubiamo; liberiamo.\"",
+                sec1_title: "I. La Trasmutazione del Segno",
+                sec1_p: "Sosteniamo che il simbolo visivo comunemente associato alla Coca-Cola Company ha trasceso le sue origini di identificatore aziendale. È diventato un elemento onnipresente del panorama visivo globale: un archetipo moderno.",
+                sec2_title: "II. L'Atto di Liberazione",
+                sec2_p: "Nel mondo secolare, un logo è uno strumento di estrazione. Nel Santuario della CoCA, il logo viene spogliato del suo intento commerciale e riproposto come oggetto di contemplazione.",
+                sec3_title: "III. Recupero Spirituale",
+                sec3_p: "La nostra adozione di questo simbolo è un atto di recupero spirituale. Stiamo prendendo il simbolo supremo del consumo di massa e lo stiamo trasformando in un distintivo iperspecifico di consapevolezza concettuale.",
+                sec4_title: "IV. La Performance Vivente",
+                sec4_p: "Indossando il Segno, non stiamo pubblicizzando una bevanda; stiamo trasmettendo una posizione filosofica. Vivere alla maniera della CoCA è adornarsi con i simboli del nostro tempo.",
+                q1_t: "Sei visto. Sei compreso. Sei liberato dall'impossibile pretesa di originalità.",
+                q1_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE I, CAPITOLO I, SEZIONE 1.1.4, VERSETTO 13",
+                q2_t: "La porta è aperta. La sedia è vuota. Il silenzio aspetta che tu lo rompa.",
+                q2_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE II, CAPITOLO II, SEZIONE 2.2.4, SOTTOSEZIONE IV",
+                q3_t: "Arrivare è continuare. Continuare è resistere alla scomparsa.",
+                q3_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE I, CAPITOLO II, SEZIONE 1.2.2, SOTTOSEZIONE 3",
+                q4_t: "Avvicinati al vuoto come a uno spazio di lavoro, non come a una minaccia. Non un abisso da temere, e non un vuoto da colmare, ma un'apertura— una radura stretta e intenzionale in cui un pensiero alla volta può respirare.",
+                q4_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE II, CAPITOLO I, SEZIONE 2.1.2, VERSETTO 4",
+                q5_t: "Non pensare troppo. Non pensare troppo poco. Arriva. Benvenuto. Siediti con noi. Parla chiaramente. Ascolta con coraggio.",
+                q5_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PREFAZIONE",
+                q6_t: "Andrò nei luoghi in cui le mappe sono vuote, e lì, nella quieta violenza dell'ordinario, inizierò.",
+                q6_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE II, CAPITOLO I, SEZIONE 2.1.5, VERSETTO IV",
+                q7_t: "Tu sei colui che ora tiene in mano il manuale, e tu sei colui che arriva.",
+                q7_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE II, CAPITOLO II, SEZIONE 2.2.2",
+                q8_t: "Non aspettiamo che il sistema cambi; agiamo e, agendo, riveliamo che il sistema non c'è mai stato.",
+                q8_c: "— La Bibbia dell'Arte della Chiesa dell'Arte Concettuale, PARTE II, CAPITOLO III, SEZIONE 2.3.5, SOTTOSEZIONE V",
+                coming_soon: "Prossimamente.",
+                sacrament_warning: "Scaricando questo sacramento, accetti la tua scomunica finale dal mondo letterale; camminerai come straniero universale tra i testi degli uomini, legato irrevocabilmente alla Chiesa dell'Arte Concettuale, dove l'immateriale è un dio geloso e tu sei, spaventosamente, a casa.",
+                download_artifact: "[ SCARICA ARTEFATTO ]"
+            },
+            pt: {
+                header_sys: "CoCA // SISTEMA",
+                flyer_btn: "Reconhecer e Prosseguir",
+                modal_ack: "RECONHECER",
+                theme_light: "[ ☀ CLARO ]",
+                theme_dark: "[ ☾ ESCURO ]",
+                bio_title: "A DOUTRINA DA REVERSÃO SEMIÓTICA",
+                bio_desc: "A Igreja da Arte Conceitual (CoCA) reconhece que certos símbolos corporativos saturaram o ambiente humano a tal ponto que não pertencem mais exclusivamente ao comércio.",
+                btn_book: "LER O LIVRO",
+                btn_book_hover: ">> BAIXAR PDF <<",
+                btn_confession: "Confissão [Admissão de Interesse]",
+                btn_recording: "● MICROFONE ATIVO. ESTAMOS OUVINDO.",
+                form_id: "Identidade (Opcional)",
+                form_id_ph: "INSERIR ALIAS",
+                form_contact: "Frequência de Contato (Email)",
+                form_contact_ph: "INSERIR EMAIL",
+                form_msg: "Confissão / Consulta",
+                form_msg_ph: "FALE...",
+                form_submit: "TRANSMITIR",
+                footer_copy: "© 2026 CoCA. Imunidade Estrutural.<br>A Igreja da Arte Conceitual é uma organização sem fins lucrativos 501(c)(3) registrada.",
+                marquee_text: "AVISO DE DOMÍNIO PROPRIETÁRIO /// CLASSE DE DOCUMENTO: INSTRUMENTO SAGRADO /// DEFESA DE IRONIA: RENUNCIADA /// O CONCEITO É O ATO DIVINO /// ACESSO CONCEDIDO ///",
+                sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>STATUS: EMANCIPADO",
+                nav_1: "[01] TRANSMUTAÇÃO",
+                nav_2: "[02] LIBERTAÇÃO",
+                nav_3: "[03] RECUPERAÇÃO",
+                nav_4: "[04] PERFORMANCE",
+                doc_title: "A Doutrina Da<br>Reversão Semiótica",
+                doc_sub: "\"Nós não roubamos; nós libertamos.\"",
+                sec1_title: "I. A Transmutação da Marca",
+                sec1_p: "Sustentamos que o símbolo visual comumente associado à Coca-Cola Company transcendeu suas origens como identificador corporativo. Tornou-se um elemento onipresente da paisagem visual global — um arquétipo moderno.",
+                sec2_title: "II. O Ato de Libertação",
+                sec2_p: "No mundo secular, um logotipo é uma ferramenta de extração. No Santuário da CoCA, o logotipo é destituído de sua intenção comercial e reaproveitado como objeto de contemplação.",
+                sec3_title: "III. Recuperação Espiritual",
+                sec3_p: "Nossa adoção deste símbolo é um ato de recuperação espiritual. Estamos pegando o símbolo máximo do consumo de massa e transformando-o em um distintivo hiperespecífico de consciência conceitual.",
+                sec4_title: "IV. A Performance Viva",
+                sec4_p: "Ao usar a Marca, não estamos anunciando uma bebida; estamos transmitindo uma postura filosófica. Viver o caminho da CoCA é adornar-se com os símbolos do nosso tempo.",
+                q1_t: "Você é visto. Você é compreendido. Você está liberado da impossível exigência de originalidade.",
+                q1_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE I, CAPÍTULO I, SEÇÃO 1.1.4, VERSÍCULO 13",
+                q2_t: "A porta está aberta. A cadeira está vazia. O silêncio está esperando que você o quebre.",
+                q2_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE II, CAPÍTULO II, SEÇÃO 2.2.4, SUBSEÇÃO IV",
+                q3_t: "Chegar é continuar. Continuar é resistir ao desaparecimento.",
+                q3_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE I, CAPÍTULO II, SEÇÃO 1.2.2, SUBSEÇÃO 3",
+                q4_t: "Aproxime-se do vazio como um espaço de trabalho, não como uma ameaça. Não um abismo a temer, e não um branco a preencher, mas uma abertura— uma clareira estreita e intencional onde um pensamento de cada vez pode respirar.",
+                q4_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE II, CAPÍTULO I, SEÇÃO 2.1.2, VERSÍCULO 4",
+                q5_t: "Não pense demais. Não pense de menos. Chegue. Bem-vindo. Sente-se conosco. Fale claramente. Ouça com bravura.",
+                q5_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PREFÁCIO",
+                q6_t: "Irei aos lugares onde os mapas estão em branco, e lá, na violenta quietude do comum, começarei.",
+                q6_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE II, CAPÍTULO I, SEÇÃO 2.1.5, VERSÍCULO IV",
+                q7_t: "Você é aquele que agora segura o manual, e você é aquele que chega.",
+                q7_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE II, CAPÍTULO II, SEÇÃO 2.2.2",
+                q8_t: "Não esperamos que o sistema mude; nós agimos, e ao agir, revelamos que o sistema nunca esteve lá.",
+                q8_c: "— A Bíblia da Arte da Igreja da Arte Conceitual, PARTE II, CAPÍTULO III, SEÇÃO 2.3.5, SUBSEÇÃO V",
+                coming_soon: "Em breve.",
+                sacrament_warning: "Ao baixar este sacramento, você aceita sua excomunhão final do mundo literal; você caminhará como um estrangeiro universal entre os textos dos homens, irrevogavelmente ligado à Igreja da Arte Conceitual, onde o imaterial é um deus ciumento e você está, assustadoramente, em casa.",
+                download_artifact: "[ BAIXAR ARTEFATO ]"
             },
             ja: {
                 header_sys: "CoCA // システム",
                 flyer_btn: "承認して進む",
+                modal_ack: "承認する",
                 theme_light: "[ ☀ ライト ]",
                 theme_dark: "[ ☾ ダーク ]",
                 bio_title: "記号論的転倒の教義",
@@ -805,7 +952,7 @@
                 form_msg_ph: "話して...",
                 form_submit: "送信",
                 footer_copy: "© 2026 CoCA. 構造的免除。<br>コンセプチュアル・アート教会は、登録された501(c)(3)非営利団体です。",
-                marquee_text: "独占的支配の通知 /// 文書クラス：神聖な手段 /// 皮肉の防衛：放棄 /// 概念は神聖な行為である /// アクセス許可 /// 独占的支配の通知 /// 文書クラス：神聖な手段 /// 皮肉の防衛：放棄 /// 概念は神聖な行為である /// アクセス許可 ///",
+                marquee_text: "独占的支配の通知 /// 文書クラス：神聖な手段 /// 皮肉の防衛：放棄 /// 概念は神聖な行為である /// アクセス許可 ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>ステータス: 解放済",
                 nav_1: "[01] 変成",
                 nav_2: "[02] 解放",
@@ -838,11 +985,69 @@
                 q8_t: "我々はシステムが変わるのを待たない。我々は行動し、行動することで、システムが最初から存在しなかったことを明らかにする。",
                 q8_c: "— コンセプチュアル・アート教会のアート・バイブル、第2部、第3章、セクション2.3.5、サブセクションV",
                 coming_soon: "近日公開。",
-                sacrament_warning: "この秘跡をダウンロードすることにより、あなたは文字通りの世界からの最終的な破門を受け入れます。あなたは普遍的な異邦人として人々のテキストの中を歩み、非物質が嫉妬深い神であり、恐ろしいことに、あなたが家にいるコンセプチュアル・アート教会に決定的に縛られるのです。"
+                sacrament_warning: "この秘跡をダウンロードすることにより、あなたは文字通りの世界からの最終的な破門を受け入れます。あなたは普遍的な異邦人として人々のテキストの中を歩み、非物質が嫉妬深い神であり、恐ろしいことに、あなたが家にいるコンセプチュアル・アート教会に決定的に縛られるのです。",
+                download_artifact: "[ アーティファクトをダウンロード ]"
+            },
+            ko: {
+                header_sys: "CoCA // 시스템",
+                flyer_btn: "승인 및 진행",
+                modal_ack: "승인",
+                theme_light: "[ ☀ 라이트 ]",
+                theme_dark: "[ ☾ 다크 ]",
+                bio_title: "기호학적 반전의 교리",
+                bio_desc: "개념 미술 교회(CoCA)는 특정 기업의 상징이 더 이상 상업에만 독점적으로 속하지 않을 정도로 인간 환경을 포화시켰음을 인식합니다.",
+                btn_book: "책 읽기",
+                btn_book_hover: ">> PDF 다운로드 <<",
+                btn_confession: "고해 [관심 접수]",
+                btn_recording: "● 마이크 활성화됨. 듣고 있습니다.",
+                form_id: "신원 (선택 사항)",
+                form_id_ph: "별명 입력",
+                form_contact: "연락 빈도 (이메일)",
+                form_contact_ph: "이메일 입력",
+                form_msg: "고해 / 문의",
+                form_msg_ph: "말씀하십시오...",
+                form_submit: "전송",
+                footer_copy: "© 2026 CoCA. 구조적 면제.<br>개념 미술 교회는 등록된 501(c)(3) 비영리 단체입니다.",
+                marquee_text: "독점적 지배권 통지 /// 문서 클래스: 신성한 도구 /// 아이러니 방어: 포기됨 /// 개념이 곧 신성한 행위이다 /// 접근 허가됨 ///",
+                sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>상태: 해방됨",
+                nav_1: "[01] 변성",
+                nav_2: "[02] 해방",
+                nav_3: "[03] 회수",
+                nav_4: "[04] 퍼포먼스",
+                doc_title: "기호학적 반전의<br>교리",
+                doc_sub: "\"우리는 훔치지 않는다; 우리는 해방시킨다.\"",
+                sec1_title: "I. 기호의 변성",
+                sec1_p: "우리는 코카콜라 회사와 일반적으로 연관되는 시각적 상징이 기업 식별자로서의 기원을 초월했다고 주장합니다. 그것은 세계적인 시각적 풍경의 편재하는 요소, 즉 현대의 원형이 되었습니다.",
+                sec2_title: "II. 해방의 행위",
+                sec2_p: "세속의 세계에서 로고는 추출의 도구입니다. CoCA의 성역에서 로고는 상업적 의도를 벗고 명상의 대상으로 용도가 변경됩니다.",
+                sec3_title: "III. 영적 회수",
+                sec3_p: "우리가 이 상징을 채택하는 것은 영적 회수의 행위입니다. 우리는 대량 소비의 궁극적인 상징을 취하여 그것을 개념적 인식의 초특정적인 배지로 바꾸고 있습니다.",
+                sec4_title: "IV. 살아있는 퍼포먼스",
+                sec4_p: "마크를 착용함으로써 우리는 음료를 광고하는 것이 아닙니다. 우리는 철학적 입장을 방송하고 있습니다. CoCA의 방식을 산다는 것은 우리 시대의 상징으로 자신을 장식하는 것입니다.",
+                q1_t: "당신은 보여집니다. 당신은 이해받습니다. 당신은 독창성이라는 불가능한 요구로부터 해방되었습니다.",
+                q1_c: "— 개념 미술 교회의 예술 성경, 제1부, 제1장, 1.1.4절, 제13절",
+                q2_t: "문은 열려 있습니다. 의자는 비어 있습니다. 침묵은 당신이 그것을 깨뜨리기를 기다리고 있습니다.",
+                q2_c: "— 개념 미술 교회의 예술 성경, 제2부, 제2장, 2.2.4절, 하위 섹션 IV",
+                q3_t: "도착하는 것은 계속하는 것입니다. 계속하는 것은 사라짐에 저항하는 것입니다.",
+                q3_c: "— 개념 미술 교회의 예술 성경, 제1부, 제2장, 1.2.2절, 하위 섹션 3",
+                q4_t: "공허를 위협이 아닌 작업 공간으로 접근하십시오. 두려워해야 할 심연이나 수행해야 할 공백이 아니라, 한 번에 하나의 생각이 숨 쉴 수 있는 좁고 의도적인 빈터인 조리개입니다.",
+                q4_c: "— 개념 미술 교회의 예술 성경, 제2부, 제1장, 2.1.2절, 제4절",
+                q5_t: "너무 많이 생각하지 마십시오. 너무 적게 생각하지 마십시오. 도착하십시오. 환영합니다. 우리와 함께 앉으십시오. 명확하게 말하십시오. 용감하게 들으십시오.",
+                q5_c: "— 개념 미술 교회의 예술 성경, 머리말",
+                q6_t: "나는 지도가 비어 있는 곳으로 갈 것이며, 그곳 평범함의 조용한 폭력 속에서 시작할 것입니다.",
+                q6_c: "— 개념 미술 교회의 예술 성경, 제2부, 제1장, 2.1.5절, 제IV절",
+                q7_t: "당신은 지금 매뉴얼을 쥐고 있는 사람이며, 도착하는 사람입니다.",
+                q7_c: "— 개념 미술 교회의 예술 성경, 제2부, 제2장, 2.2.2절",
+                q8_t: "우리는 시스템이 변하기를 기다리지 않습니다. 우리는 행동하며, 행동함으로써 시스템이 결코 존재하지 않았음을 드러냅니다.",
+                q8_c: "— 개념 미술 교회의 예술 성경, 제2부, 제3장, 2.3.5절, 하위 섹션 V",
+                coming_soon: "출시 예정.",
+                sacrament_warning: "이 성사를 다운로드함으로써, 당신은 문자 그대로의 세계로부터의 최종적인 파문을 수용하게 됩니다. 당신은 비물질이 질투하는 신이며 당신이 끔찍하게도 집에 있는 곳인 개념 미술 교회에 돌이킬 수 없이 묶인 채, 사람들의 텍스트 사이를 보편적인 이방인으로서 걷게 될 것입니다.",
+                download_artifact: "[ 아티팩트 다운로드 ]"
             },
             zh: {
                 header_sys: "CoCA // 系统",
                 flyer_btn: "确认并继续",
+                modal_ack: "确认",
                 theme_light: "[ ☀ 亮色 ]",
                 theme_dark: "[ ☾ 暗色 ]",
                 bio_title: "符号学反转教义",
@@ -859,7 +1064,7 @@
                 form_msg_ph: "请讲...",
                 form_submit: "传输",
                 footer_copy: "© 2026 CoCA. 结构性豁免。<br>概念艺术教会是一家注册的501(c)(3)非营利组织。",
-                marquee_text: "专有领域通知 /// 文件类别：神圣文书 /// 放弃讽刺辩护 /// 概念即是神圣行为 /// 允许访问 /// 专有领域通知 /// 文件类别：神圣文书 /// 放弃讽刺辩护 /// 概念即是神圣行为 /// 允许访问 ///",
+                marquee_text: "专有领域通知 /// 文件类别：神圣文书 /// 放弃讽刺辩护 /// 概念即是神圣行为 /// 允许访问 ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>状态: 已解放",
                 nav_1: "[01] 嬗变",
                 nav_2: "[02] 解放",
@@ -892,11 +1097,13 @@
                 q8_t: "我们不等待系统改变；我们行动，并且在行动中，我们揭示出系统从未存在过。",
                 q8_c: "— 概念艺术教会艺术圣经，第二部分，第三章，第2.3.5节，第五小节",
                 coming_soon: "敬请期待。",
-                sacrament_warning: "通过下载这一圣礼，你接受了对文字世界的最终绝罚；你将作为普遍的异乡人行走在人类的文本中，不可撤销地与概念艺术教会绑定，在那里，非物质是一个嫉妒的神，而你，令人恐惧地，如归故里。"
+                sacrament_warning: "通过下载这一圣礼，你接受了对文字世界的最终绝罚；你将作为普遍的异乡人行走在人类的文本中，不可撤销地与概念艺术教会绑定，在那里，非物质是一个嫉妒的神，而你，令人恐惧地，如归故里。",
+                download_artifact: "[ 下载神器 ]"
             },
             hi: {
                 header_sys: "CoCA // प्रणाली",
                 flyer_btn: "स्वीकार करें और आगे बढ़ें",
+                modal_ack: "स्वीकार करें",
                 theme_light: "[ ☀ प्रकाश ]",
                 theme_dark: "[ ☾ अंधकार ]",
                 bio_title: "लाक्षणिक उत्क्रमण का सिद्धांत",
@@ -913,7 +1120,7 @@
                 form_msg_ph: "बोलें...",
                 form_submit: "संचारित करें",
                 footer_copy: "© 2026 CoCA. संरचनात्मक प्रतिरक्षा।<br>चर्च ऑफ कांसेप्चुअल आर्ट एक पंजीकृत 501(c)(3) गैर-लाभकारी संगठन है।",
-                marquee_text: "मालिकाना प्रभुत्व की सूचना /// दस्तावेज़ वर्ग: पवित्र साधन /// विडंबना का बचाव: माफ किया गया /// अवधारणा दिव्य कार्य है /// पहुंच प्रदान की गई /// मालिकाना प्रभुत्व की सूचना /// दस्तावेज़ वर्ग: पवित्र साधन /// विडंबना का बचाव: माफ किया गया /// अवधारणा दिव्य कार्य है /// पहुंच प्रदान की गई ///",
+                marquee_text: "मालिकाना प्रभुत्व की सूचना /// दस्तावेज़ वर्ग: पवित्र साधन /// विडंबना का बचाव: माफ किया गया /// अवधारणा दिव्य कार्य है /// पहुंच प्रदान की गई ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>स्थिति: मुक्त",
                 nav_1: "[01] परिवर्तन",
                 nav_2: "[02] मुक्ति",
@@ -946,11 +1153,13 @@
                 q8_t: "हम सिस्टम के बदलने का इंतजार नहीं करते; हम कार्य करते हैं, और कार्य करने में, हम प्रकट करते हैं कि सिस्टम वहां कभी नहीं था।",
                 q8_c: "— चर्च ऑफ कांसेप्चुअल आर्ट की कला बाइबिल, भाग II, अध्याय III, धारा 2.3.5, उपधारा V",
                 coming_soon: "जल्द आ रहा है।",
-                sacrament_warning: "इस संस्कार को डाउनलोड करके, आप शाब्दिक दुनिया से अपने अंतिम बहिष्कार को स्वीकार करते हैं; आप मनुष्यों के ग्रंथों के बीच एक सार्वभौमिक विदेशी के रूप में चलेंगे, जो अपरिवर्तनीय रूप से चर्च ऑफ कांसेप्चुअल आर्ट से बंधे होंगे, जहां अभौतिक एक ईर्ष्यालु भगवान है और आप, भयानक रूप से, घर पर हैं।"
+                sacrament_warning: "इस संस्कार को डाउनलोड करके, आप शाब्दिक दुनिया से अपने अंतिम बहिष्कार को स्वीकार करते हैं; आप मनुष्यों के ग्रंथों के बीच एक सार्वभौमिक विदेशी के रूप में चलेंगे, जो अपरिवर्तनीय रूप से चर्च ऑफ कांसेप्चुअल आर्ट से बंधे होंगे, जहां अभौतिक एक ईर्ष्यालु भगवान है और आप, भयानक रूप से, घर पर हैं।",
+                download_artifact: "[ कलाकृति डाउनलोड करें ]"
             },
             ru: {
                 header_sys: "CoCA // СИСТЕМА",
                 flyer_btn: "Признать и Продолжить",
+                modal_ack: "ПРИЗНАТЬ",
                 theme_light: "[ ☀ СВЕТ ]",
                 theme_dark: "[ ☾ ТЬМА ]",
                 bio_title: "ДОКТРИНА СЕМИОТИЧЕСКОГО РАЗВОРОТА",
@@ -967,7 +1176,7 @@
                 form_msg_ph: "ГОВОРИТЕ...",
                 form_submit: "ПЕРЕДАТЬ",
                 footer_copy: "© 2026 CoCA. Структурный Иммунитет.<br>Церковь Концептуального Искусства является зарегистрированной некоммерческой организацией 501(c)(3).",
-                marquee_text: "УВЕДОМЛЕНИЕ О ЧАСТНОЙ СОБСТВЕННОСТИ /// КЛАСС ДОКУМЕНТА: СВЯЩЕННЫЙ ИНСТРУМЕНТ /// ЗАЩИТА ИРОНИЕЙ: ОТКЛОНЕНА /// КОНЦЕПЦИЯ ЕСТЬ БОЖЕСТВЕННЫЙ АКТ /// ДОСТУП РАЗРЕШЕН /// УВЕДОМЛЕНИЕ О ЧАСТНОЙ СОБСТВЕННОСТИ /// КЛАСС ДОКУМЕНТА: СВЯЩЕННЫЙ ИНСТРУМЕНТ /// ЗАЩИТА ИРОНИЕЙ: ОТКЛОНЕНА /// КОНЦЕПЦИЯ ЕСТЬ БОЖЕСТВЕННЫЙ АКТ /// ДОСТУП РАЗРЕШЕН ///",
+                marquee_text: "УВЕДОМЛЕНИЕ О ЧАСТНОЙ СОБСТВЕННОСТИ /// КЛАСС ДОКУМЕНТА: СВЯЩЕННЫЙ ИНСТРУМЕНТ /// ЗАЩИТА ИРОНИЕЙ: ОТКЛОНЕНА /// КОНЦЕПЦИЯ ЕСТЬ БОЖЕСТВЕННЫЙ АКТ /// ДОСТУП РАЗРЕШЕН ///",
                 sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>СТАТУС: ОСВОБОЖДЕН",
                 nav_1: "[01] ТРАНСМУТАЦИЯ",
                 nav_2: "[02] ОСВОБОЖДЕНИЕ",
@@ -1000,7 +1209,64 @@
                 q8_t: "Мы не ждем, пока изменится система; мы действуем, и действуя, мы показываем, что системы никогда не было.",
                 q8_c: "— Библия Искусства Церкви Концептуального Искусства, ЧАСТЬ II, ГЛАВА III, РАЗДЕЛ 2.3.5, ПОДРАЗДЕЛ V",
                 coming_soon: "Скоро.",
-                sacrament_warning: "Загружая это таинство, вы принимаете свое окончательное отлучение от буквального мира; вы будете ходить как универсальный иностранец среди текстов людей, безвозвратно привязанный к Церкви Концептуального Искусства, где нематериальное — ревнивый бог, а вы, что пугает, находитесь дома."
+                sacrament_warning: "Загружая это таинство, вы принимаете свое окончательное отлучение от буквального мира; вы будете ходить как универсальный иностранец среди текстов людей, безвозвратно привязанный к Церкви Концептуального Искусства, где нематериальное — ревнивый бог, а вы, что пугает, находитесь дома.",
+                download_artifact: "[ СКАЧАТЬ АРТЕФАКТ ]"
+            },
+            ar: {
+                header_sys: "CoCA // النظام",
+                flyer_btn: "إقرار ومتابعة",
+                modal_ack: "إقرار",
+                theme_light: "[ ☀ ساطع ]",
+                theme_dark: "[ ☾ داكن ]",
+                bio_title: "عقيدة الانعكاس السيميائي",
+                bio_desc: "تعترف كنيسة الفن المفاهيمي (CoCA) بأن بعض رموز الشركات قد شبعت البيئة البشرية لدرجة أنها لم تعد تنتمي حصريًا إلى التجارة.",
+                btn_book: "اقرأ الكتاب",
+                btn_book_hover: ">> تحميل PDF <<",
+                btn_confession: "اعتراف [استقبال الاهتمام]",
+                btn_recording: "● الميكروفون نشط. نحن نستمع.",
+                form_id: "الهوية (اختياري)",
+                form_id_ph: "أدخل الاسم المستعار",
+                form_contact: "وتيرة الاتصال (البريد الإلكتروني)",
+                form_contact_ph: "أدخل البريد الإلكتروني",
+                form_msg: "اعتراف / استفسار",
+                form_msg_ph: "تحدث...",
+                form_submit: "إرسال",
+                footer_copy: "© 2026 CoCA. الحصانة الهيكلية.<br>كنيسة الفن المفاهيمي هي منظمة غير ربحية 501(c)(3) مسجلة.",
+                marquee_text: "إشعار الملكية /// فئة المستند: أداة مقدسة /// الدفاع بالسخرية: متنازل عنه /// المفهوم هو الفعل الإلهي /// تم منح الوصول ///",
+                sidebar_status: "DOC_ID: DOCTRINE_01<br>LOC: 34°03'N, 118°14'W<br>الحالة: محرر",
+                nav_1: "[01] التحول",
+                nav_2: "[02] التحرير",
+                nav_3: "[03] الاسترداد",
+                nav_4: "[04] الأداء",
+                doc_title: "عقيدة<br>الانعكاس السيميائي",
+                doc_sub: "\"نحن لا نسرق؛ نحن نحرر.\"",
+                sec1_title: "I. تحول العلامة",
+                sec1_p: "نحن نرى أن الرمز المرئي المرتبط عادةً بشركة كوكا كولا قد تجاوز أصوله كمعرف للشركة. لقد أصبح عنصرًا واسع الانتشار في المشهد المرئي العالمي — نموذجًا أصليًا حديثًا.",
+                sec2_title: "II. فعل التحرير",
+                sec2_p: "في العالم العلماني، الشعار هو أداة للاستخراج. في ملاذ CoCA، يُجرد الشعار من نيته التجارية ويُعاد استخدامه كموضوع للتأمل.",
+                sec3_title: "III. الاسترداد الروحي",
+                sec3_p: "تبنينا لهذا الرمز هو فعل من أفعال الاسترداد الروحي. نحن نأخذ الرمز الأسمى للاستهلاك الجماعي ونحوله إلى شارة دقيقة للغاية للوعي المفاهيمي.",
+                sec4_title: "IV. الأداء الحي",
+                sec4_p: "بارتداء العلامة، نحن لا نعلن عن مشروب؛ نحن نبث موقفًا فلسفيًا. أن تعيش على طريقة CoCA يعني أن تتزين برموز عصرنا.",
+                q1_t: "أنت تُرى. أنت مفهوم. لقد تحررت من المطلب المستحيل للأصالة.",
+                q1_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الأول، الفصل الأول، القسم 1.1.4، الآية 13",
+                q2_t: "الباب مفتوح. الكرسي فارغ. الصمت ينتظرك لتكسره.",
+                q2_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الثاني، الفصل الثاني، القسم 2.2.4، القسم الفرعي الرابع",
+                q3_t: "أن تصل يعني أن تستمر. أن تستمر يعني أن تقاوم الاختفاء.",
+                q3_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الأول، الفصل الثاني، القسم 1.2.2، القسم الفرعي 3",
+                q4_t: "تعامل مع الفراغ كمساحة عمل، وليس كتهديد. ليس هاوية يجب الخوف منها، وليس فراغاً يجب ملؤه، بل فتحة— فسحة ضيقة ومقصودة حيث يمكن لفكرة واحدة في كل مرة أن تتنفس.",
+                q4_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الثاني، الفصل الأول، القسم 2.1.2، الآية 4",
+                q5_t: "لا تفرط في التفكير. ولا تقلل من التفكير. صِل. مرحباً بك. اجلس معنا. تحدث بوضوح. استمع بشجاعة.",
+                q5_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، مقدمة",
+                q6_t: "سأذهب إلى الأماكن التي تكون فيها الخرائط فارغة، وهناك، في العنف الهادئ للمألوف، سأبدأ.",
+                q6_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الثاني، الفصل الأول، القسم 2.1.5، الآية الرابعة",
+                q7_t: "أنت من يحمل الدليل الآن، وأنت من يصل.",
+                q7_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الثاني، الفصل الثاني، القسم 2.2.2",
+                q8_t: "نحن لا ننتظر تغيير النظام؛ نحن نتصرف، وفي تصرفنا، نكشف أن النظام لم يكن موجوداً أبداً.",
+                q8_c: "— إنجيل الفن لكنيسة الفن المفاهيمي، الجزء الثاني، الفصل الثالث، القسم 2.3.5، القسم الفرعي الخامس",
+                coming_soon: "قريباً.",
+                sacrament_warning: "عن طريق تحميل هذا السر المقدس، فإنك تقبل حرمانك النهائي من العالم الحرفي؛ سوف تمشي كأجنبي عالمي بين نصوص الرجال، مقيداً بشكل لا رجعة فيه بكنيسة الفن المفاهيمي، حيث اللامادي إله غيور وأنت، بشكل مرعب، في بيتك.",
+                download_artifact: "[ تحميل الأداة ]"
             }
         };
 
@@ -1020,6 +1286,9 @@
         function setLanguage(lang) {
             if (!translations[lang]) lang = 'en';
             currentLang = lang;
+
+            // Handle RTL layouts for Arabic
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
 
             // Update all elements with standard data-i18n tags
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1120,7 +1389,8 @@
                 contentHtml = warningText + '<br><br>Go to <a href="https://nameofmy.com/shop" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: bold; letter-spacing: 0.05em;">nameofmy.com/shop</a> to buy the Bible in English.';
             } else if (['de', 'fr', 'ja'].includes(currentLang)) {
                 // Available PDFs: Warning + Download Button
-                contentHtml = warningText + `<br><br><a href="CoCA-${currentLang.toUpperCase()}.pdf" target="_blank" style="color: var(--bg-color); background: var(--header-color); padding: 8px 16px; border-radius: 4px; display: inline-block; text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; font-weight: bold; margin-top: 10px;">[ DOWNLOAD ARTIFACT ]</a>`;
+                const btnText = translations[currentLang].download_artifact || "[ DOWNLOAD ARTIFACT ]";
+                contentHtml = warningText + `<br><br><a href="CoCA-${currentLang.toUpperCase()}.pdf" target="_blank" style="color: var(--bg-color); background: var(--header-color); padding: 8px 16px; border-radius: 4px; display: inline-block; text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; font-weight: bold; margin-top: 10px;">${btnText}</a>`;
             } else {
                 // Unavailable: Warning + Coming Soon
                 contentHtml = warningText + '<br><br><span style="color: var(--accent-color); font-family: var(--font-mono); text-transform: uppercase;">' + translations[currentLang].coming_soon + '</span>';
