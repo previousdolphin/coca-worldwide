@@ -438,6 +438,17 @@
         </div>
     </div>
 
+    <!-- --- SYSTEM MODAL --- -->
+    <div id="system-modal" class="flyer-overlay" style="display: none; opacity: 0; transition: opacity 0.3s;">
+        <div class="flyer-content" style="padding: 3rem; max-width: 450px;">
+            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-color); margin-bottom: 1.5rem; letter-spacing: 0.2em;">/// SYSTEM MESSAGE ///</div>
+            <p id="system-modal-text" style="font-family: var(--font-main); font-size: 1.2rem; line-height: 1.5; margin-bottom: 2.5rem;"></p>
+            <button id="close-system-modal" class="flyer-btn" style="padding: 0.8rem 2rem; font-size: 0.9rem;">
+                ACKNOWLEDGE
+            </button>
+        </div>
+    </div>
+
     <button class="theme-toggle" id="theme-btn" data-i18n="theme_light">[ ☀ LIGHT ]</button>
 
     <div class="hero-spread"></div>
@@ -609,7 +620,8 @@
                 q7_t: "You are the one who is now holding the manual, and you are the one who arrives.",
                 q7_c: "— The Art Bible of the Church of Conceptual Art, PART II, CHAPTER II, SECTION 2.2.2",
                 q8_t: "We do not wait for the system to change; we act, and in acting, we reveal that the system was never there.",
-                q8_c: "— The Art Bible of the Church of Conceptual Art, PART II, CHAPTER III, SECTION 2.3.5, SUBSECTION V"
+                q8_c: "— The Art Bible of the Church of Conceptual Art, PART II, CHAPTER III, SECTION 2.3.5, SUBSECTION V",
+                coming_soon: "Coming soon."
             },
             fr: {
                 header_sys: "CoCA // SYSTÈME",
@@ -661,7 +673,8 @@
                 q7_t: "C'est vous qui tenez maintenant le manuel, et c'est vous qui arrivez.",
                 q7_c: "— La Bible de l'Art de l'Église de l'Art Conceptuel, PARTIE II, CHAPITRE II, SECTION 2.2.2",
                 q8_t: "Nous n'attendons pas que le système change ; nous agissons, et en agissant, nous révélons que le système n'a jamais été là.",
-                q8_c: "— La Bible de l'Art de l'Église de l'Art Conceptuel, PARTIE II, CHAPITRE III, SECTION 2.3.5, SOUS-SECTION V"
+                q8_c: "— La Bible de l'Art de l'Église de l'Art Conceptuel, PARTIE II, CHAPITRE III, SECTION 2.3.5, SOUS-SECTION V",
+                coming_soon: "Bientôt disponible."
             },
             de: {
                 header_sys: "CoCA // SYSTEM",
@@ -713,7 +726,8 @@
                 q7_t: "Du bist derjenige, der jetzt das Handbuch in den Händen hält, und du bist derjenige, der ankommt.",
                 q7_c: "— Die Kunstbibel der Church of Conceptual Art, TEIL II, KAPITEL II, ABSCHNITT 2.2.2",
                 q8_t: "Wir warten nicht darauf, dass sich das System ändert; wir handeln, und indem wir handeln, offenbaren wir, dass das System nie da war.",
-                q8_c: "— Die Kunstbibel der Church of Conceptual Art, TEIL II, KAPITEL III, ABSCHNITT 2.3.5, UNTERABSCHNITT V"
+                q8_c: "— Die Kunstbibel der Church of Conceptual Art, TEIL II, KAPITEL III, ABSCHNITT 2.3.5, UNTERABSCHNITT V",
+                coming_soon: "Demnächst."
             },
             es: {
                 header_sys: "CoCA // SISTEMA",
@@ -765,7 +779,8 @@
                 q7_t: "Tú eres quien ahora sostiene el manual, y tú eres quien llega.",
                 q7_c: "— La Biblia del Arte de la Iglesia del Arte Conceptual, PARTE II, CAPÍTULO II, SECCIÓN 2.2.2",
                 q8_t: "No esperamos a que el sistema cambie; actuamos, y al actuar, revelamos que el sistema nunca estuvo allí.",
-                q8_c: "— La Biblia del Arte de la Iglesia del Arte Conceptual, PARTE II, CAPÍTULO III, SECCIÓN 2.3.5, SUBSECCIÓN V"
+                q8_c: "— La Biblia del Arte de la Iglesia del Arte Conceptual, PARTE II, CAPÍTULO III, SECCIÓN 2.3.5, SUBSECCIÓN V",
+                coming_soon: "Próximamente."
             },
             ja: {
                 header_sys: "CoCA // システム",
@@ -817,7 +832,8 @@
                 q7_t: "あなたは今手引き書を持っている者であり、到着する者である。",
                 q7_c: "— コンセプチュアル・アート教会のアート・バイブル、第2部、第2章、セクション2.2.2",
                 q8_t: "我々はシステムが変わるのを待たない。我々は行動し、行動することで、システムが最初から存在しなかったことを明らかにする。",
-                q8_c: "— コンセプチュアル・アート教会のアート・バイブル、第2部、第3章、セクション2.3.5、サブセクションV"
+                q8_c: "— コンセプチュアル・アート教会のアート・バイブル、第2部、第3章、セクション2.3.5、サブセクションV",
+                coming_soon: "近日公開。"
             },
             zh: {
                 header_sys: "CoCA // 系统",
@@ -869,7 +885,8 @@
                 q7_t: "你就是现在拿着手册的人，你就是到达的人。",
                 q7_c: "— 概念艺术教会艺术圣经，第二部分，第二章，第2.2.2节",
                 q8_t: "我们不等待系统改变；我们行动，并且在行动中，我们揭示出系统从未存在过。",
-                q8_c: "— 概念艺术教会艺术圣经，第二部分，第三章，第2.3.5节，第五小节"
+                q8_c: "— 概念艺术教会艺术圣经，第二部分，第三章，第2.3.5节，第五小节",
+                coming_soon: "敬请期待。"
             },
             hi: {
                 header_sys: "CoCA // प्रणाली",
@@ -921,7 +938,8 @@
                 q7_t: "आप वही हैं जो अब मैनुअल पकड़े हुए हैं, और आप ही हैं जो आते हैं।",
                 q7_c: "— चर्च ऑफ कांसेप्चुअल आर्ट की कला बाइबिल, भाग II, अध्याय II, धारा 2.2.2",
                 q8_t: "हम सिस्टम के बदलने का इंतजार नहीं करते; हम कार्य करते हैं, और कार्य करने में, हम प्रकट करते हैं कि सिस्टम वहां कभी नहीं था।",
-                q8_c: "— चर्च ऑफ कांसेप्चुअल आर्ट की कला बाइबिल, भाग II, अध्याय III, धारा 2.3.5, उपधारा V"
+                q8_c: "— चर्च ऑफ कांसेप्चुअल आर्ट की कला बाइबिल, भाग II, अध्याय III, धारा 2.3.5, उपधारा V",
+                coming_soon: "जल्द आ रहा है।"
             },
             ru: {
                 header_sys: "CoCA // СИСТЕМА",
@@ -973,7 +991,8 @@
                 q7_t: "Ты тот, кто сейчас держит руководство, и ты тот, кто прибывает.",
                 q7_c: "— Библия Искусства Церкви Концептуального Искусства, ЧАСТЬ II, ГЛАВА II, РАЗДЕЛ 2.2.2",
                 q8_t: "Мы не ждем, пока изменится система; мы действуем, и действуя, мы показываем, что системы никогда не было.",
-                q8_c: "— Библия Искусства Церкви Концептуального Искусства, ЧАСТЬ II, ГЛАВА III, РАЗДЕЛ 2.3.5, ПОДРАЗДЕЛ V"
+                q8_c: "— Библия Искусства Церкви Концептуального Искусства, ЧАСТЬ II, ГЛАВА III, РАЗДЕЛ 2.3.5, ПОДРАЗДЕЛ V",
+                coming_soon: "Скоро."
             }
         };
 
@@ -1027,8 +1046,18 @@
                 opt.text = opt.value === lang ? `[ ${lang.toUpperCase()} ]` : `[ ${opt.value.toUpperCase()} ]`;
             });
 
-            // Sync the PDF link
-            if(triggerBtn) triggerBtn.href = `CoCA-${lang.toUpperCase()}.pdf`;
+            // Sync the PDF link behavior
+            if(triggerBtn) {
+                if (['de', 'fr', 'ja'].includes(lang)) {
+                    triggerBtn.href = `CoCA-${lang.toUpperCase()}.pdf`;
+                    triggerBtn.removeAttribute('data-popup');
+                    triggerBtn.target = "_blank";
+                } else {
+                    triggerBtn.href = "#";
+                    triggerBtn.setAttribute('data-popup', lang === 'en' ? 'en' : 'soon');
+                    triggerBtn.removeAttribute('target');
+                }
+            }
 
             // Update URL cleanly
             const url = new URL(window.location);
@@ -1056,6 +1085,42 @@
         btnEnterSite.addEventListener('click', dismissFlyer);
         flyerOverlay.addEventListener('click', (e) => {
             if (!flyerContent.contains(e.target)) dismissFlyer();
+        });
+
+        /* --- SYSTEM MODAL LOGIC --- */
+        const systemModal = document.getElementById('system-modal');
+        const systemModalText = document.getElementById('system-modal-text');
+        const closeSystemModalBtn = document.getElementById('close-system-modal');
+
+        function showSystemModal(htmlContent) {
+            systemModalText.innerHTML = htmlContent;
+            systemModal.style.display = 'flex';
+            void systemModal.offsetWidth; // force reflow
+            systemModal.style.opacity = '1';
+            systemModal.style.pointerEvents = 'auto';
+        }
+
+        function hideSystemModal() {
+            systemModal.style.opacity = '0';
+            systemModal.style.pointerEvents = 'none';
+            setTimeout(() => { systemModal.style.display = 'none'; }, 300);
+        }
+
+        closeSystemModalBtn.addEventListener('click', hideSystemModal);
+        systemModal.addEventListener('click', (e) => {
+            if (e.target === systemModal) hideSystemModal();
+        });
+
+        triggerBtn.addEventListener('click', (e) => {
+            const popupType = triggerBtn.getAttribute('data-popup');
+            if (popupType) {
+                e.preventDefault();
+                if (popupType === 'en') {
+                    showSystemModal('Go to <a href="https://nameofmy.com/shop" target="_blank" style="color: var(--accent-color); text-decoration: underline;">nameofmy.com/shop</a> to buy the Bible in English.');
+                } else {
+                    showSystemModal(translations[currentLang].coming_soon || "Coming soon.");
+                }
+            }
         });
 
         /* --- BUTTON LOGIC HOOKED TO TRANSLATIONS --- */
