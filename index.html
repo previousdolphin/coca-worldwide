@@ -1501,7 +1501,7 @@
             if (currentLang === 'en') {
                 // English: Warning + Shop Redirect
                 contentHtml = warningText + '<br><br>Go to <a href="https://nameofmy.com/shop" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: bold; letter-spacing: 0.05em;">nameofmy.com/shop</a> to buy the Bible in English.';
-            } else if (['de', 'fr', 'ja','zh','ru'].includes(currentLang)) {
+            } else if (['de', 'fr', 'ja','zh','ru','it'].includes(currentLang)) {
                 // Available PDFs: Warning + Download Button
                 const btnText = translations[currentLang].download_artifact || "[ DOWNLOAD ARTIFACT ]";
                 contentHtml = warningText + `<br><br><a href="CoCA-${currentLang.toUpperCase()}.pdf" target="_blank" style="color: var(--bg-color); background: var(--header-color); padding: 8px 16px; border-radius: 4px; display: inline-block; text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; font-weight: bold; margin-top: 10px;">${btnText}</a>`;
