@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>CoCA × Diet Coke Oracle</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --bg-color: #050505;
+            --text-color: #e2e2e2;
+            --text-muted: #888888;
+            --coca-red: #F40009;
+            --terminal-green: #00ff41;
+            
+            --font-main: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Noise Filter Background from CoCA */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* --- LAYOUT --- */
+        .splash-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            animation: ritualFadeIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- HERO LOGOS --- */
+        .hero-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        /* CoCA Typographic Logo Approximation */
+        .coca-logo {
+            font-family: var(--font-main);
+            font-size: 5.5rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            color: var(--text-color);
+            line-height: 1;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .cross-mark {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            font-weight: 100;
+        }
+
+        /* Diet Coke Oracle Logo */
+        .dc-logo-wrapper {
+            display: inline-block;
+            position: relative;
+            pointer-events: none;
+            margin-top: 10px;
+        }
+
+        .dc-logo-top {
+            font-family: var(--font-serif);
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 0.8;
+            color: var(--coca-red);
+            display: block;
+        }
+
+        .dc-logo-diet {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-style: italic;
+            font-weight: bold;
+            color: var(--text-color);
+            position: absolute;
+            top: -24px;
+            right: -15px;
+            letter-spacing: normal;
+        }
+
+        /* --- CONTENT --- */
+        .content-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--coca-red);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .description strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* --- CTA BUTTON --- */
+        .cta-btn {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 1.2rem 2.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            background: transparent;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: var(--coca-red);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-btn:hover {
+            color: #fff;
+            border-color: var(--coca-red);
+            box-shadow: 0 0 20px rgba(244, 0, 9, 0.4);
+            transform: scale(1.02);
+        }
+
+        .cta-btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-arrow {
+            font-family: var(--font-mono);
+            margin-left: 8px;
+            font-weight: normal;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .unsubscribe-credit {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .unsubscribe-credit a {
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-muted);
+            transition: color 0.3s, border-color 0.3s;
+            font-weight: bold;
+        }
+
+        .unsubscribe-credit a:hover {
+            color: var(--coca-red);
+            border-bottom-color: var(--coca-red);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-logos {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .coca-logo {
+                font-size: 4.5rem;
+            }
+
+            .dc-logo-top {
+                font-size: 5rem;
+            }
+
+            .dc-logo-diet {
+                font-size: 2rem;
+                top: -18px;
+                right: -10px;
+            }
+
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .footer {
+                position: relative;
+                bottom: 0;
+                margin-top: 4rem;
+            }
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes ritualFadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="splash-container">
+        
+        <div class="hero-logos">
+            <!-- CoCA Logo -->
+            <div class="coca-logo">CoCA</div>
+            
+            <div class="cross-mark">×</div>
+            
+            <!-- Diet Coke Logo -->
+            <div class="dc-logo-wrapper">
+                <span class="dc-logo-top">Coke</span>
+                <span class="dc-logo-diet">Diet</span>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="subtitle">Structural Clarity Protocol</div>
+            
+            <p class="description">
+                A dedicated chat interface built to <strong>brutally sharpen your questions</strong>. 
+                Interact via voice or text with the Oracle to strip away emotional noise and find clinical answers through the ancient structural logic of the I Ching.
+            </p>
+
+            <a href="https://unsubscribe.llc/dietcoke.html" class="cta-btn">
+                Consult The Oracle <span class="btn-arrow">[→]</span>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="unsubscribe-credit">
+            System architecture by <a href="https://unsubscribe.llc/about-us" target="_blank">unsubscribe</a>
+        </div>
+    </footer>
+
+</body>
+</html>
