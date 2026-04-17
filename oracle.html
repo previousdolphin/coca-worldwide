@@ -71,16 +71,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 3rem;
+            gap: 2.5rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
 
         /* CoCA SVG Logo via CSS Masking */
         .coca-logo-svg {
-            width: 130px;
-            height: 130px;
-            background-color: var(--text-color); /* White to balance the red Coke text */
+            width: 320px; /* Scaled up significantly */
+            height: 150px;
+            background-color: var(--text-color); 
             -webkit-mask-image: url("CoCA-Vector-redrawn-photoshop.svg");
             mask-image: url("CoCA-Vector-redrawn-photoshop.svg");
             -webkit-mask-size: contain; 
@@ -94,7 +94,7 @@
 
         .cross-mark {
             font-family: var(--font-mono);
-            font-size: 2.5rem;
+            font-size: 1.5rem; /* Reduced to match screenshot proportions */
             color: var(--text-muted);
             opacity: 0.5;
             font-weight: 100;
@@ -246,8 +246,8 @@
             }
 
             .coca-logo-svg {
-                width: 100px;
-                height: 100px;
+                width: 240px; /* Massively increased for mobile */
+                height: 120px;
             }
 
             .dc-logo-top {
@@ -319,3 +319,4 @@
 
 </body>
 </html>
+
