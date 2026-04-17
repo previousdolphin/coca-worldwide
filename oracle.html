@@ -71,16 +71,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2.5rem;
+            gap: 3.5rem; /* Gap between the 3 main elements */
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
 
-        /* CoCA SVG Logo via CSS Masking */
+        /* CoCA SVG Masking with Scaling Wrapper */
+        .coca-logo-wrapper {
+            /* This defines the footprint in the layout. */
+            width: 240px; 
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .coca-logo-svg {
-            /* Generous height allows the SVG to fully expand to the width parameter without getting clipped */
-            width: 320px; 
-            height: 160px;
+            width: 100%;
+            height: 100%;
             background-color: var(--text-color); 
             -webkit-mask-image: url("CoCA-Vector-redrawn-photoshop.svg");
             mask-image: url("CoCA-Vector-redrawn-photoshop.svg");
@@ -90,7 +98,12 @@
             mask-repeat: no-repeat;
             -webkit-mask-position: center; 
             mask-position: center;
-            filter: drop-shadow(0 0 15px rgba(226, 226, 226, 0.15));
+            /* THE FIX: This scales the logo visually to eat the whitespace 
+               without changing how much layout space the wrapper takes up. 
+               Adjust this up or down (e.g. 2.5 or 3.0) if needed. 
+            */
+            transform: scale(2.8); 
+            filter: drop-shadow(0 0 10px rgba(226, 226, 226, 0.1));
         }
 
         .cross-mark {
@@ -240,19 +253,21 @@
 
         /* --- RESPONSIVE LOGIC --- */
 
-        /* 1. Mobile Portrait (Stacked exactly to width bounds) */
+        /* 1. Mobile Portrait */
         @media (max-width: 768px) and (orientation: portrait) {
             .hero-logos {
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 1.5rem; /* Clean gap now that footprint is managed */
                 margin-bottom: 2.5rem;
             }
 
+            .coca-logo-wrapper {
+                width: 250px; /* Aligns well with the Coke logo block width */
+                height: 80px;
+            }
+
             .coca-logo-svg {
-                width: 280px; /* Matched to the visual width of the Coke text block */
-                height: 120px;
-                -webkit-mask-position: bottom center;
-                mask-position: bottom center;
+                transform: scale(3.2); /* Slightly higher scale on mobile for dominance */
             }
 
             .cross-mark {
@@ -282,7 +297,7 @@
             }
         }
 
-        /* 2. Mobile Landscape / Small Heights (Tight horizontal stacking) */
+        /* 2. Mobile Landscape / Small Heights */
         @media (max-height: 500px) and (orientation: landscape) {
             .splash-container {
                 padding: 1rem;
@@ -294,10 +309,16 @@
                 margin-bottom: 1.5rem;
                 margin-top: 2rem;
             }
-            .coca-logo-svg {
-                width: 200px;
-                height: 90px;
+            
+            .coca-logo-wrapper {
+                width: 150px;
+                height: 60px;
             }
+            
+            .coca-logo-svg {
+                transform: scale(2.5);
+            }
+
             .cross-mark {
                 font-size: 1.2rem;
             }
@@ -335,8 +356,10 @@
     <main class="splash-container">
         
         <div class="hero-logos">
-            <!-- CoCA SVG Logo (White) -->
-            <div class="coca-logo-svg"></div>
+            <!-- CoCA SVG Logo Wrapper -->
+            <div class="coca-logo-wrapper">
+                <div class="coca-logo-svg"></div>
+            </div>
             
             <div class="cross-mark">×</div>
             
