@@ -71,26 +71,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2.5rem;
+            gap: 3rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
 
-        /* CoCA Typographic Logo Approximation */
-        .coca-logo {
-            font-family: var(--font-main);
-            font-size: 5.5rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            color: var(--text-color);
-            line-height: 1;
-            position: relative;
-            text-transform: uppercase;
+        /* CoCA SVG Logo via CSS Masking */
+        .coca-logo-svg {
+            width: 130px;
+            height: 130px;
+            background-color: var(--text-color); /* White to balance the red Coke text */
+            -webkit-mask-image: url("CoCA-Vector-redrawn-photoshop.svg");
+            mask-image: url("CoCA-Vector-redrawn-photoshop.svg");
+            -webkit-mask-size: contain; 
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat; 
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center; 
+            mask-position: center;
+            filter: drop-shadow(0 0 15px rgba(226, 226, 226, 0.15));
         }
 
         .cross-mark {
             font-family: var(--font-mono);
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--text-muted);
             opacity: 0.5;
             font-weight: 100;
@@ -241,8 +245,9 @@
                 margin-bottom: 2rem;
             }
 
-            .coca-logo {
-                font-size: 4.5rem;
+            .coca-logo-svg {
+                width: 100px;
+                height: 100px;
             }
 
             .dc-logo-top {
@@ -279,8 +284,8 @@
     <main class="splash-container">
         
         <div class="hero-logos">
-            <!-- CoCA Logo -->
-            <div class="coca-logo">CoCA</div>
+            <!-- CoCA SVG Logo (White) -->
+            <div class="coca-logo-svg"></div>
             
             <div class="cross-mark">×</div>
             
